@@ -1,16 +1,31 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     Vector2 input;
+
     Rigidbody2D rb;
+    Animator _animator;
 
     [SerializeField] float playerSpeed;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        UpdateAnimations();
+    }
+
+    private void UpdateAnimations()
+    {
+        _animator.SetFloat("VerticalMov", input.y);
+        _animator.SetFloat("Velocity", rb.velocity.magnitude);
     }
 
     void FixedUpdate()
