@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,9 +7,8 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         private Vector2 input;
-
         private Rigidbody2D rb;
-
+        private GameObject interactionObj;
         private Animator _animator;
 
         [SerializeField, Tooltip("Player speed multiplier.")] private float playerSpeed;
@@ -39,10 +39,30 @@ namespace Player
             rb.velocity = delta * playerSpeed;
         }
 
-        void OnMove(InputValue value)
+        private void OnMove(InputValue value)
         {
             input = value.Get<Vector2>();
-            Debug.Log(input);
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            interactionIcon.SetActive(true);
+            interactionObj = collision.gameObject;
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            interactionIcon.SetActive(false);
+            interactionObj = null;
+        }
+
+        private void OnInteract(InputValue value)
+        {
+            if(interactionObj != null && interactionIcon.activeSelf == true)
+            {
+                interactionObj.GetComponent<Interactable>().InteractAction();
+                interactionIcon.SetActive(false);
+            }
         }
     }
 }
