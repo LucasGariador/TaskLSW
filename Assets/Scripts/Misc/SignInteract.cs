@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-namespace Miscellaneous
+namespace Core
 {
     public class SignInteract : Interactable
     {

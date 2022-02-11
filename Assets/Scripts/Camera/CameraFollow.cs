@@ -13,6 +13,10 @@ namespace Camera
 
         private Vector3 velocity = Vector3.zero;
 
+        private void Update()
+        {
+           
+        }
         private void LateUpdate()
         {
             Vector3 desirePosition = target.position + offset;
