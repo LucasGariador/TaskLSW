@@ -11,6 +11,11 @@ namespace Player
         private GameObject interactionObj;
         private Animator _animator;
 
+        [HideInInspector] public Sprite frontShirt;
+        [HideInInspector] public Sprite backShirt;
+
+        [SerializeField] private SpriteRenderer playerChest;
+
         [SerializeField, Tooltip("Player speed multiplier.")] private float playerSpeed;
 
         [SerializeField, Tooltip("Icon above the player when he can interact.")] private GameObject interactionIcon;
@@ -25,6 +30,14 @@ namespace Player
         private void Update()
         {
             UpdateAnimations();
+            if(input.y > 0 && rb.velocity.magnitude > 0)
+            {
+                playerChest.sprite = backShirt;
+            }
+            else
+            {
+                playerChest.sprite = frontShirt;
+            }
         }
 
         private void UpdateAnimations()
